@@ -1211,7 +1211,7 @@
 /world/Topic(T, addr, master, key)
 	if(T=="ping")
 		var/x = 1
-		for(var/client/C)
+		for(var/client/C in world)
 			x++
 		return x
 

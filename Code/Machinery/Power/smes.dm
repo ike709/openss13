@@ -47,13 +47,16 @@
 		..()
 
 		spawn(5)
-			dir_loop:
-				for(var/d in cardinal)
-					var/turf/T = get_step(src, d)
-					for(var/obj/machinery/power/terminal/term in T)
-						if(term && term.dir == turn(d, 180))		// terminal must have wires pointing towards the SMES
-							terminal = term
-							break dir_loop
+			var/break_loop = FALSE
+			for(var/d in cardinal)
+				if(break_loop)
+					break
+				var/turf/T = get_step(src, d)
+				for(var/obj/machinery/power/terminal/term in T)
+					if(term && term.dir == turn(d, 180))		// terminal must have wires pointing towards the SMES
+						terminal = term
+						break_loop = TRUE
+						break
 
 			if(!terminal)
 				stat |= BROKEN
