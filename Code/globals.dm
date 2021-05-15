@@ -138,7 +138,7 @@ var
 	world_message = "Welcome to OpenSS13!"
 	savefile_ver = "4"
 	SS13_version = "1.0 \[Development Version] - 8/17/2008"
-	changes = {"<FONT color='blue'><H3>Version: [SS13_version]</H3><B>Changes from base version 1</B></FONT><BR>
+	changes = {"<FONT color='blue'><H3>Version: 1.0 \[Development Version] - 8/17/2008</H3><B>Changes from base version 1</B></FONT><BR>
 <HR>
 <p><B>This is a test version which hasn't been released yet, the reason being to test new bugfixes and/or features to see if they're all working without having broken anything else.
 </B></p>
@@ -212,7 +212,7 @@ var
 	//airlockWireColorToIndex takes a number representing the wire color, e.g. the orange wire is always 1, the dark red wire is always 2, etc. It returns the index for whatever that wire does.
 	//airlockIndexToWireColor does the opposite thing - it takes the index for what the wire does, for example AIRLOCK_WIRE_IDSCAN is 1, AIRLOCK_WIRE_POWER1 is 2, etc. It returns the wire color number.
 	//airlockWireColorToFlag takes the wire color number and returns the flag for it (1, 2, 4, 8, 16, etc)
-	list/airlockWireColorToFlag = RandomAirlockWires()
+	list/airlockWireColorToFlag
 	list/airlockIndexToFlag
 	list/airlockIndexToWireColor
 	list/airlockWireColorToIndex
