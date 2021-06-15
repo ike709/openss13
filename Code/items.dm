@@ -4938,17 +4938,19 @@
 /obj/item/weapon/bottle/attackby(obj/item/weapon/B, mob/user)
 
 	if (istype(B, /obj/item/weapon/bottle))
+		var/obj/item/weapon/bottle/E = B
 		var/t1 = src.chem.maximum
 		var/volume = src.chem.volume()
 		if (volume < 0.1)
 			return
 		else
 			t1 = volume - 0.1
-		t1 = src.chem.transfer_from(B:chem, t1)
+		t1 = src.chem.transfer_from(E.chem, t1)
 		if (t1)
 			user.show_message(text("\blue You pour [] unit\s into the bottle. The bottle now contains [] millimeters.", round(t1, 0.1), round(src.chem.volume(), 0.1)))
 	if (istype(B, /obj/item/weapon/syringe))
-		if (B:mode == "inject")
+		var/obj/item/weapon/syringe/S = B
+		if (S.mode == "inject")
 			var/t1 = 5
 			var/volume = src.chem.volume()
 			if (volume < 0.01)
@@ -4956,10 +4958,10 @@
 			else
 				if (volume < 5.01)
 					t1 = volume - 0.01
-			t1 = src.chem.transfer_from(B:chem, t1)
-			B:update_is()
+			t1 = src.chem.transfer_from(S.chem, t1)
+			S.update_is()
 			if (t1)
-				user.show_message(text("\blue You inject [] unit\s into the bottle. The syringe contains [] units.", round(t1, 0.1), round(B:chem.volume(), 0.1)))
+				user.show_message(text("\blue You inject [] unit\s into the bottle. The syringe contains [] units.", round(t1, 0.1), round(S.chem.volume(), 0.1)))
 		else
 			var/t1 = 5
 			var/volume = src.chem.volume()
@@ -4968,14 +4970,15 @@
 			else
 				if (volume < 5.05)
 					t1 = volume - 0.05
-			t1 = B:chem.transfer_from(src.chem, t1)
-			B:update_is()
+			t1 = S.chem.transfer_from(src.chem, t1)
+			S.update_is()
 			if (t1)
-				user.show_message(text("\blue You draw [] unit\s from the bottle. The syringe contains [] units.", round(t1, 0.1), round(B:chem.volume(), 0.1)))
+				user.show_message(text("\blue You draw [] unit\s from the bottle. The syringe contains [] units.", round(t1, 0.1), round(S.chem.volume(), 0.1)))
 		src.add_fingerprint(user)
 	else
 		if (istype(B, /obj/item/weapon/dropper))
-			if (B:mode == "inject")
+			var/obj/item/weapon/dropper/D = B
+			if (D.mode == "inject")
 				var/t1 = 1
 				var/volume = src.chem.volume()
 				if (volume < 0.0050)
@@ -4983,10 +4986,10 @@
 				else
 					if (volume < 1.005)
 						t1 = volume - 0.0050
-				t1 = src.chem.transfer_from(B:chem, t1)
-				B:update_is()
+				t1 = src.chem.transfer_from(D.chem, t1)
+				D.update_is()
 				if (t1)
-					user.show_message(text("\blue You deposit [] unit\s into the bottle. The dropper contains [] units.", round(t1, 0.1), round(B:chem.volume(), 0.1)))
+					user.show_message(text("\blue You deposit [] unit\s into the bottle. The dropper contains [] units.", round(t1, 0.1), round(D.chem.volume(), 0.1)))
 			else
 				var/t1 = 1
 				var/volume = src.chem.volume()
@@ -4995,10 +4998,10 @@
 				else
 					if (volume < 1.005)
 						t1 = volume - 0.0050
-				t1 = B:chem.transfer_from(src.chem, t1)
-				B:update_is()
+				t1 = D.chem.transfer_from(src.chem, t1)
+				D.update_is()
 				if (t1)
-					user.show_message(text("\blue You extract [] unit\s from the bottle. The dropper contains [] units.", round(t1, 0.1), round(B:chem.volume(), 0.1)))
+					user.show_message(text("\blue You extract [] unit\s from the bottle. The dropper contains [] units.", round(t1, 0.1), round(D.chem.volume(), 0.1)))
 	return
 
 /obj/item/weapon/bottle/toxins/New()
