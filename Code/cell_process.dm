@@ -919,7 +919,7 @@ turf/proc/tot_old_gas()
 
 
 
-/turf/updatecell()
+/turf/proc/updatecell()
 
 
 	/*var/list/FT = FindTurfs()
@@ -1611,7 +1611,7 @@ turf/proc/tot_old_gas()
 
 	return
 
-/turf/conduction()
+/turf/proc/conduction()
 
 	var/difftemp = 0
 	for(var/turf/T in FindCondTurfs())

@@ -1269,12 +1269,6 @@
 			M.show_message(text("<B>[]</B> points to []", usr, src), 1)
 	return
 
-/turf/proc/updatecell()
-	return
-
-/turf/proc/conduction()
-	return
-
 /turf/proc/cachecell()
 	return
 

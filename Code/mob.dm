@@ -4854,14 +4854,6 @@
 	src.client_mob() << msg
 	return
 
-/mob/proc/findname(msg)
-
-	for(var/mob/M in world)
-		if (M.rname == text("[]", msg))
-			return 1
-	return 0
-	return
-
 /mob/proc/m_delay()
 
 	return
