@@ -3084,10 +3084,11 @@
 				L += T
 		if(length(L))
 			src.loc = pick(L)
+		var/list/spawns = list()
 		for(var/turf/station/S in world)
 			if(S.isempty())
-				src.loc = S
-				break
+				spawns += S
+		src.loc = pick(spawns)
 
 	return
 
