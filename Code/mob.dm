@@ -4035,13 +4035,13 @@
 				W.layer = initial(W.layer)
 	//for(var/i in src.overlays)
 	//	src.overlays -= i
-	src.overlays = null
+	src.overlays.Cut()
 	//for(var/i in src.zone_sel.overlays)
 	//	src.zone_sel.overlays -= i
 
 	//*****RM
 	if(src.zone_sel)
-		src.zone_sel.overlays = null
+		src.zone_sel.overlays.Cut()
 		src.zone_sel.overlays += src.body_standing
 		src.zone_sel.overlays += image("icon" = 'zone_sel.dmi', "icon_state" = text("[]", src.zone_sel.selecting))
 

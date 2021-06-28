@@ -45,15 +45,15 @@ obj/machinery/power/solar_control
 	proc/updateicon()
 		if(stat & BROKEN)
 			icon_state = "broken"
-			overlays = null
+			overlays.Cut()
 			return
 		if(stat & NOPOWER)
 			icon_state = "c_unpowered"
-			overlays = null
+			overlays.Cut()
 			return
 
 		icon_state = "solar_con"
-		overlays = null
+		overlays.Cut()
 		if(cdir > 0)
 			overlays += image('enginecomputer.dmi', "solcon-o[cdir]", FLY_LAYER)
 

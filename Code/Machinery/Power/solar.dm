@@ -46,7 +46,7 @@ obj/machinery/power/solar
 	// As the object direction is changed, the overlay direction will echo it
 
 	proc/updateicon()
-		src.overlays = null
+		src.overlays.Cut()
 		if(stat & BROKEN)
 			overlays += image('power.dmi', "solar_panel-b", FLY_LAYER)
 		else

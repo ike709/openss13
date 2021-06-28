@@ -19,7 +19,7 @@
 	else
 		icon_state = "hpcell"
 
-	overlays = null
+	overlays.Cut()
 
 	if(charge < 0.01)
 		return

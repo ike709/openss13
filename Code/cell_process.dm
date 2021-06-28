@@ -220,7 +220,7 @@
 				if (src.sl_gas > 101000.0)
 					src.overlays = list( slmaster )
 				else
-					src.overlays = null
+					src.overlays.Cut()
 			if (burn)
 				src.firelevel = src.oxygen + src.poison
 			if (src.firelevel >= config.min_gas_for_fire)
@@ -301,7 +301,7 @@
 				if (src.sl_gas > 101000.0)
 					src.overlays = list( slmaster )
 				else
-					src.overlays = null
+					src.overlays.Cut()
 			if (burn)
 				src.firelevel = src.oxygen + src.poison
 			if (src.firelevel >= config.min_gas_for_fire)
@@ -1059,7 +1059,7 @@ turf/proc/tot_old_gas()
 				if (src.sl_gas > 101000.0)
 					src.overlays = list( slmaster )
 				else
-					src.overlays = null
+					src.overlays.Cut()
 			if (burn)
 				src.firelevel = src.oxygen + src.poison
 			if (src.firelevel >= config.min_gas_for_fire)
@@ -1209,7 +1209,7 @@ turf/proc/tot_old_gas()
 				if (src.sl_gas > 101000.0)
 					src.overlays = list( slmaster )
 				else
-					src.overlays = null
+					src.overlays.Cut()
 			if (burn)
 				src.firelevel = src.oxygen + src.poison
 			if (src.firelevel >= config.min_gas_for_fire)

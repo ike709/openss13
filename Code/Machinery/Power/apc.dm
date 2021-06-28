@@ -125,13 +125,13 @@ obj/machinery/power/apc
 	proc/updateicon()
 		if(opened)
 			icon_state = "[ cell ? "apc2" : "apc1" ]"		// if opened, show cell if it's inserted
-			src.overlays = null								// also delete all overlays
+			src.overlays.Cut()							// also delete all overlays
 		else
 			icon_state = "apc0"
 
 			// if closed, update overlays for channel status
 
-			src.overlays = null
+			src.overlays.Cut()
 
 			overlays += image('power.dmi', "apcox-[locked]")	// 0=blue 1=red
 			overlays += image('power.dmi', "apco3-[charging]") // 0=red, 1=yellow/black 2=green
@@ -677,7 +677,7 @@ obj/machinery/power/apc
 	proc/set_broken()
 		stat |= BROKEN
 		icon_state = "apc-b"
-		overlays = null
+		overlays.Cut()
 
 		operating = 0
 		update()

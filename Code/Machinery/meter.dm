@@ -38,7 +38,7 @@ obj/machinery/meter
 
 		if(!target || !target.pl)
 			icon_state = "meterX"
-			overlays = null
+			overlays.Cut()
 			return
 		if(stat & NOPOWER)
 			icon_state = "meter0"
@@ -56,7 +56,7 @@ obj/machinery/meter
 
 		if(alarm)
 			if(pressure < PRESSURELIMIT)
-				overlays = null
+				overlays.Cut()
 				alarm = 0
 		else
 			if(pressure > PRESSURELIMIT)

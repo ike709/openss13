@@ -72,7 +72,7 @@
 
 	proc/updateicon()
 
-		overlays = null
+		overlays.Cut()
 		if(stat & BROKEN)
 			return
 

@@ -49,13 +49,13 @@ obj/machinery/cell_charger
 
 			if(chargelevel != newlevel)		// displayed charge level is cached, so as to only update the overlay when needed
 
-				overlays = null
+				overlays.Cut()
 				overlays += image('power.dmi', "ccharger-o[newlevel]")
 
 				chargelevel = newlevel
 
 		else
-			overlays = null
+			overlays.Cut()
 
 
 	// removes the cell from the charger (if a cell is inserted)

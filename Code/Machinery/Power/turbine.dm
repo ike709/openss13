@@ -53,7 +53,7 @@ obj/machinery/compressor
 
 	process()
 
-		overlays = null
+		overlays.Cut()
 		if(stat & BROKEN)
 			return
 
@@ -135,7 +135,7 @@ obj/machinery/power/turbine
 
 	process()
 
-		overlays = null
+		overlays.Cut()
 		if(stat & BROKEN)
 			return
 

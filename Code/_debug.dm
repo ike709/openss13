@@ -17,7 +17,7 @@
 		if(!O)
 			O = new /obj/mark(T)
 		else
-			O.overlays = null
+			O.overlays.Cut()
 
 		var/obj/move/OM = locate(/obj/move/, T)
 
@@ -118,7 +118,7 @@
 		if(!O)
 			O = new /obj/mark(T)
 		else
-			O.overlays = null
+			O.overlays.Cut()
 
 
 		var/temp = round(T.temp-T0C, 0.1)
@@ -149,7 +149,7 @@
 				if(!O)
 					O = new /obj/mark(T)
 				else
-					O.overlays = null
+					O.overlays.Cut()
 
 				if(istype(M, /obj/machinery/pipes))
 					var/obj/machinery/pipes/P = M
@@ -180,7 +180,7 @@
 		if(!O)
 			O = new /obj/mark(T)
 		else
-			O.overlays = null
+			O.overlays.Cut()
 
 		var/marked = 0
 		for(var/obj/M in T)
@@ -218,7 +218,7 @@
 		if(!O)
 			O = new /obj/mark(T)
 		else
-			O.overlays = null
+			O.overlays.Cut()
 
 
 		var/obj/machinery/power/solar/S

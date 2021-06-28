@@ -217,7 +217,7 @@ obj/machinery/pipes
 
 		var/list/dirs = get_node_dirs()
 
-		overlays = null
+		overlays.Cut()
 
 		if(!node1)														// node1 is not connected
 			if(!findbrokenpipe(T, dirs[1], level, 0))					// no broken pipe present
@@ -554,7 +554,7 @@ obj/machinery/pipes
 
 			src.icon_state = is
 
-			overlays = null
+			overlays.Cut()
 
 			if(!node1)														// node1 is not connected
 				if(!findbrokenpipe(T, dirs[1], level, 1))					// no broken pipe present
