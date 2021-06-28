@@ -45,7 +45,7 @@ obj/machinery/atmoalter/canister
 
 		var/air_in = src.gas.tot_gas()		// the amount of gas in the canister
 
-		src.overlays = 0
+		src.overlays.Cut()
 
 		if (destroyed)
 			icon_state = "[canister_color]-1"

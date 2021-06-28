@@ -582,7 +582,6 @@
 /obj/secloset/personal/New()
 
 	..()
-	sleep(2)
 	new /obj/item/weapon/storage/backpack( src )
 	new /obj/item/weapon/radio/headset( src )
 	new /obj/item/weapon/radio/signaler( src )
@@ -625,7 +624,7 @@
 /obj/secloset/security2/New()
 
 	..()
-	sleep(2)
+	
 	new /obj/item/weapon/clothing/under/red( src )
 	new /obj/item/weapon/storage/fcard_kit( src )
 	new /obj/item/weapon/storage/fcard_kit( src )
@@ -645,7 +644,7 @@
 /obj/secloset/security1/New()
 
 	..()
-	sleep(2)
+	
 	new /obj/item/weapon/storage/flashbang_kit( src )
 	new /obj/item/weapon/storage/handcuff_kit( src )
 	new /obj/item/weapon/gun/energy/taser_gun( src )
@@ -661,7 +660,7 @@
 /obj/secloset/highsec/New()
 
 	..()
-	sleep(2)
+	
 	new /obj/item/weapon/gun/energy/laser_gun( src )
 	new /obj/item/weapon/gun/energy/taser_gun( src )
 	new /obj/item/weapon/flash( src )
@@ -676,7 +675,7 @@
 /obj/secloset/captains/New()
 
 	..()
-	sleep(2)
+	
 	new /obj/item/weapon/gun/energy/laser_gun( src )
 	new /obj/item/weapon/gun/energy/taser_gun( src )
 	new /obj/item/weapon/storage/id_kit( src )
@@ -690,7 +689,7 @@
 /obj/secloset/animal/New()
 
 	..()
-	sleep(2)
+	
 	new /obj/item/weapon/radio/signaler( src )
 	new /obj/item/weapon/radio/electropack( src )
 	new /obj/item/weapon/radio/electropack( src )
@@ -702,7 +701,7 @@
 /obj/secloset/medical1/New()
 
 	..()
-	sleep(2)
+	
 	new /obj/item/weapon/bottle/toxins( src )
 	new /obj/item/weapon/bottle/rejuvenators( src )
 	new /obj/item/weapon/bottle/s_tox( src )
@@ -724,7 +723,7 @@
 /obj/secloset/medical2/New()
 
 	..()
-	sleep(2)
+	
 	new /obj/item/weapon/tank/anesthetic( src )
 	new /obj/item/weapon/tank/anesthetic( src )
 	new /obj/item/weapon/tank/anesthetic( src )
@@ -1020,7 +1019,7 @@
 /obj/closet/syndicate/nuclear/New()
 
 	..()
-	sleep(2)
+	
 	new /obj/item/weapon/ammo/a357( src )
 	new /obj/item/weapon/ammo/a357( src )
 	new /obj/item/weapon/ammo/a357( src )
@@ -1036,7 +1035,7 @@
 /obj/closet/syndicate/personal/New()
 
 	..()
-	sleep(2)
+	
 	new /obj/item/weapon/tank/jetpack(src)
 	new /obj/item/weapon/clothing/mask/m_mask(src)
 	new /obj/item/weapon/clothing/head/s_helmet(src)
@@ -1049,7 +1048,7 @@
 /obj/closet/emcloset/New()
 
 	..()
-	sleep(2)
+
 	new /obj/item/weapon/tank/oxygentank( src )
 	new /obj/item/weapon/clothing/mask/gasmask( src )
 	return
@@ -1057,7 +1056,7 @@
 /obj/closet/l3closet/New()
 
 	..()
-	sleep(2)
+	
 	new /obj/item/weapon/tank/oxygentank( src )
 	new /obj/item/weapon/clothing/mask/gasmask( src )
 	new /obj/item/weapon/clothing/suit/bio_suit( src )
@@ -1989,14 +1988,14 @@
 	return !( src.density )
 	return
 
-/turf/New()
+/*/turf/New()
 
 	..()
 	for(var/atom/movable/AM as mob|obj in src)
 		spawn( 0 )
 			src.Entered(AM)
 			return
-	return
+	return*/
 
 /turf/Enter(atom/movable/O as mob|obj, atom/forget as mob|obj|turf|area)
 

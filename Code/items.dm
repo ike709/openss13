@@ -3413,7 +3413,7 @@
 
 /obj/item/weapon/storage/toolbox/electrical/New()
 	..()
-	src.contents = null
+	src.contents.Cut()
 	new /obj/item/weapon/screwdriver( src )
 	new /obj/item/weapon/wirecutters( src )
 	new /obj/item/weapon/t_scanner( src )
