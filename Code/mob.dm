@@ -2860,48 +2860,49 @@
 	return
 
 /mob/human/New()
-	spawn (1)
-		if (world.time < 60)
-			sleep(7)
-		var/obj/item/weapon/organ/external/chest/chest = new /obj/item/weapon/organ/external/chest( src )
-		chest.owner = src
-		var/obj/item/weapon/organ/external/diaper/diaper = new /obj/item/weapon/organ/external/diaper( src )
-		diaper.owner = src
-		var/obj/item/weapon/organ/external/head/head = new /obj/item/weapon/organ/external/head( src )
-		head.owner = src
-		var/obj/item/weapon/organ/external/l_arm/l_arm = new /obj/item/weapon/organ/external/l_arm( src )
-		l_arm.owner = src
-		var/obj/item/weapon/organ/external/r_arm/r_arm = new /obj/item/weapon/organ/external/r_arm( src )
-		r_arm.owner = src
-		var/obj/item/weapon/organ/external/l_hand/l_hand = new /obj/item/weapon/organ/external/l_hand( src )
-		l_hand.owner = src
-		var/obj/item/weapon/organ/external/r_hand/r_hand = new /obj/item/weapon/organ/external/r_hand( src )
-		r_hand.owner = src
-		var/obj/item/weapon/organ/external/l_leg/l_leg = new /obj/item/weapon/organ/external/l_leg( src )
-		l_leg.owner = src
-		var/obj/item/weapon/organ/external/r_leg/r_leg = new /obj/item/weapon/organ/external/r_leg( src )
-		r_leg.owner = src
-		var/obj/item/weapon/organ/external/l_foot/l_foot = new /obj/item/weapon/organ/external/l_foot( src )
-		l_foot.owner = src
-		var/obj/item/weapon/organ/external/r_foot/r_foot = new /obj/item/weapon/organ/external/r_foot( src )
-		r_foot.owner = src
-		src.organs["chest"] = chest
-		src.organs["diaper"] = diaper
-		src.organs["head"] = head
-		src.organs["l_arm"] = l_arm
-		src.organs["r_arm"] = r_arm
-		src.organs["l_hand"] = l_hand
-		src.organs["r_hand"] = r_hand
-		src.organs["l_leg"] = l_leg
-		src.organs["r_leg"] = r_leg
-		src.organs["l_foot"] = l_foot
-		src.organs["r_foot"] = r_foot
-		if ((src.gender != "male" && src.gender != "female"))
-			src.gender = "male"
-		src.stand_icon = new /icon( 'human.dmi', text("[]", src.gender) )
-		src.lying_icon = new /icon( 'human.dmi', text("[]-d", src.gender) )
-		src.icon = src.stand_icon
-		src << "\blue Your icons have been generated!"
+	//spawn (1)
+		//.if (world.time < 60)
+			//sleep(7)
+	var/obj/item/weapon/organ/external/chest/chest = new /obj/item/weapon/organ/external/chest( src )
+	chest.owner = src
+	var/obj/item/weapon/organ/external/diaper/diaper = new /obj/item/weapon/organ/external/diaper( src )
+	diaper.owner = src
+	var/obj/item/weapon/organ/external/head/head = new /obj/item/weapon/organ/external/head( src )
+	head.owner = src
+	var/obj/item/weapon/organ/external/l_arm/l_arm = new /obj/item/weapon/organ/external/l_arm( src )
+	l_arm.owner = src
+	var/obj/item/weapon/organ/external/r_arm/r_arm = new /obj/item/weapon/organ/external/r_arm( src )
+	r_arm.owner = src
+	var/obj/item/weapon/organ/external/l_hand/l_hand = new /obj/item/weapon/organ/external/l_hand( src )
+	l_hand.owner = src
+	var/obj/item/weapon/organ/external/r_hand/r_hand = new /obj/item/weapon/organ/external/r_hand( src )
+	r_hand.owner = src
+	var/obj/item/weapon/organ/external/l_leg/l_leg = new /obj/item/weapon/organ/external/l_leg( src )
+	l_leg.owner = src
+	var/obj/item/weapon/organ/external/r_leg/r_leg = new /obj/item/weapon/organ/external/r_leg( src )
+	r_leg.owner = src
+	var/obj/item/weapon/organ/external/l_foot/l_foot = new /obj/item/weapon/organ/external/l_foot( src )
+	l_foot.owner = src
+	var/obj/item/weapon/organ/external/r_foot/r_foot = new /obj/item/weapon/organ/external/r_foot( src )
+	r_foot.owner = src
+	src.organs["chest"] = chest
+	src.organs["diaper"] = diaper
+	src.organs["head"] = head
+	src.organs["l_arm"] = l_arm
+	src.organs["r_arm"] = r_arm
+	src.organs["l_hand"] = l_hand
+	src.organs["r_hand"] = r_hand
+	src.organs["l_leg"] = l_leg
+	src.organs["r_leg"] = r_leg
+	src.organs["l_foot"] = l_foot
+	src.organs["r_foot"] = r_foot
+	if ((src.gender != "male" && src.gender != "female"))
+		src.gender = "male"
+	src.stand_icon = new /icon( 'human.dmi', text("[]", src.gender) )
+	src.lying_icon = new /icon( 'human.dmi', text("[]-d", src.gender) )
+	if(stand_icon)
+		//src.icon = src.stand_icon
+	src << "\blue Your icons have been generated!"
 		/*
 		//Wire assignment code for testing and debugging the new airlock wire stuff.
 		var/wireText = "{"
@@ -2934,8 +2935,8 @@
 		src << text("Airlock index -> wire color are [].", wireText)
 		*/
 
-		UpdateClothing()
-		return
+	UpdateClothing()
+	return
 	return
 
 /mob/human/Login()
@@ -4046,12 +4047,14 @@
 		src.zone_sel.overlays += image("icon" = 'zone_sel.dmi', "icon_state" = text("[]", src.zone_sel.selecting))
 
 	if (src.lying)
-		src.icon = src.lying_icon
+		if(src.lying_icon)
+			src.icon = src.lying_icon
 		if (src.face2)
 			src.overlays += src.face2
 		src.overlays += src.body_lying
 	else
-		src.icon = src.stand_icon
+		if(src.stand_icon)
+			src.icon = src.stand_icon
 		if (src.face)
 			src.overlays += src.face
 		src.overlays += src.body_standing
