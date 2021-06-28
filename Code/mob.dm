@@ -2860,6 +2860,7 @@
 	return
 
 /mob/human/New()
+	..()
 	//spawn (1)
 		//.if (world.time < 60)
 			//sleep(7)
@@ -2898,11 +2899,11 @@
 	src.organs["r_foot"] = r_foot
 	if ((src.gender != "male" && src.gender != "female"))
 		src.gender = "male"
-	src.stand_icon = new /icon( 'human.dmi', text("[]", src.gender) )
-	src.lying_icon = new /icon( 'human.dmi', text("[]-d", src.gender) )
-	if(stand_icon)
+	//src.stand_icon = new /icon( 'human.dmi', text("[]", src.gender) )
+	//src.lying_icon = new /icon( 'human.dmi', text("[]-d", src.gender) )
+	//if(stand_icon)
 		//src.icon = src.stand_icon
-	src << "\blue Your icons have been generated!"
+	//src << "\blue Your icons have been generated!"
 		/*
 		//Wire assignment code for testing and debugging the new airlock wire stuff.
 		var/wireText = "{"
@@ -2937,14 +2938,13 @@
 
 	UpdateClothing()
 	return
-	return
 
 /mob/human/Login()
 	if (src.droneTransitioning==1)
 		..()
 		return
 
-	if(config.logaccess)
+	if(config.logaccess && src.client)
 		world.log << "LOGIN: [src.key] from [src.client.address]"
 		src.lastKnownIP = src.client.address
 		src.lastKnownCKey = src.ckey
@@ -2961,9 +2961,9 @@
 					if (M.lastKnownCKey in banned)
 						world.log << "FURTHER NOTE: [M.lastKnownCKey] was banned."
 
-
-	src.client.screenOrBackupRemove(main_hud.contents)
-	src.client.screenOrBackupRemove(main_hud2.contents)
+	if(src.client)
+		src.client.screenOrBackupRemove(main_hud.contents)
+		src.client.screenOrBackupRemove(main_hud2.contents)
 	world.update_stat()
 	if (!( src.hud_used ))
 		src.hud_used = main_hud
@@ -2979,7 +2979,7 @@
 	src.fire = new /obj/screen( null )
 	src.healths = new /obj/screen( null )
 	src.pullin = new /obj/screen( null )
-	src.blind = new /obj/screen( null )
+	//src.blind = new /obj/screen( null )
 	src.flash = new /obj/screen( null )
 	src.hands = new /obj/screen( null )
 	src.sleep = new /obj/screen( null )
@@ -2996,7 +2996,7 @@
 	src.fire.icon_state = "fire0"
 	src.healths.icon_state = "health0"
 	src.pullin.icon_state = "pull0"
-	src.blind.icon_state = "black"
+	////src.blindicon_state = "black"
 	src.hands.icon_state = "hand"
 	src.flash.icon_state = "blank"
 	src.sleep.icon_state = "sleep0"
@@ -3011,7 +3011,7 @@
 	src.fire.name = "fire"
 	src.healths.name = "health"
 	src.pullin.name = "pull"
-	src.blind.name = " "
+	//src.blindname = " "
 	src.hands.name = "hand"
 	src.flash.name = "flash"
 	src.sleep.name = "sleep"
@@ -3028,18 +3028,19 @@
 	src.rest.screen_loc = "15,2"
 	src.pullin.screen_loc = "15,1"
 	src.hands.screen_loc = "1,3"
-	src.blind.screen_loc = "1,1 to 15,15"
+	//src.blindscreen_loc = "1,1 to 15,15"
 	src.flash.screen_loc = "1,1 to 15,15"
-	src.blind.layer = 0
-	src.blind.plane = -1
+	//src.blindlayer = 0
+	//src.blindplane = -1
 	src.flash.layer = 17
-	src.client.screen.len = null
-	src.client.screen -= list( src.zone_sel, src.oxygen, src.i_select, src.m_select, src.toxin, src.internals, src.fire, src.hands, src.healths, src.pullin, src.blind, src.flash, src.rest, src.sleep, src.mach )
-	src.client.screen += list( src.zone_sel, src.oxygen, src.i_select, src.m_select, src.toxin, src.internals, src.fire, src.hands, src.healths, src.pullin, src.blind, src.flash, src.rest, src.sleep, src.mach )
-	src.client.screen -= src.hud_used.adding
-	src.client.screen += src.hud_used.adding
+	if(src.client)
+		src.client.screen.Cut()
+		src.client.screen -= list( src.zone_sel, src.oxygen, src.i_select, src.m_select, src.toxin, src.internals, src.fire, src.hands, src.healths, src.pullin, src.flash, src.rest, src.sleep, src.mach )
+		src.client.screen += list( src.zone_sel, src.oxygen, src.i_select, src.m_select, src.toxin, src.internals, src.fire, src.hands, src.healths, src.pullin, src.flash, src.rest, src.sleep, src.mach )
+		src.client.screen -= src.hud_used.adding
+		src.client.screen += src.hud_used.adding
 	//src << browse('help.htm', "window=help")
-	if (CanAdmin())
+	if (CanAdmin() && FALSE)
 		src << text("\blue The game ip is byond://[]:[] !", world.address, world.port)
 		src.verbs += /mob/proc/mute
 		src.verbs += /mob/proc/changemessage
@@ -3070,19 +3071,23 @@
 		src.verbs += /proc/Vars
 	src << text("\blue <B>[]</B>", world_message)
 	src << browse(text("[]", changes), "window=changes")
-	if (!( isturf(src.loc) ))
+	if (src.client && !( isturf(src.loc) ))
 		src.client.eye = src.loc
 		src.client.perspective = EYE_PERSPECTIVE
 	if (!( src.start ))
 		src.savefile_load()
 		ShowChoices()
 		var/area/A = locate(/area/start)
-		var/list/L = list(  )
+		var/list/L = list()
 		for(var/turf/T in A)
-			if(T.isempty() )
+			if(T.isempty())
 				L += T
-
-		src.loc = pick(L)
+		if(length(L))
+			src.loc = pick(L)
+		for(var/turf/station/S in world)
+			if(S.isempty())
+				src.loc = S
+				break
 
 	return
 
@@ -3115,8 +3120,8 @@
 		src.healths.icon_state = "health5"
 	src.stat = 2
 	src.canmove = 0
-	src.blind.layer = 0
-	src.blind.plane = -1
+	//src.blindlayer = 0
+	//src.blindplane = -1
 	src.lying = 1
 	src.rname = "[src.rname] (Dead)"
 	//src.icon_state = "dead"
@@ -3281,6 +3286,8 @@
 /mob/human/Life()
 	set invisibility = 0
 	set background = 1
+
+	src.client.eye = src
 
 	var/turf/T = src.loc
 	var/oxcheck
@@ -3695,13 +3702,13 @@
 				src.oxygen.icon_state = "oxy0"
 		src.screenOrBackupRemove(src.hud_used.blurry)
 		src.screenOrBackupRemove(src.hud_used.vimpaired)
-		if ((src.blind && src.stat != 2))
+		if ((/*src.blind && */src.stat != 2))
 			if (src.blinded)
-				src.blind.plane = null
-				src.blind.layer = 18
+				//src.blindplane = null
+				//src.blindlayer = 18
 			else
-				src.blind.plane = -1
-				src.blind.layer = 0
+				//src.blindplane = -1
+				//src.blindlayer = 0
 				if ((src.disabilities & 1 && !( istype(src.glasses, /obj/item/weapon/clothing/glasses/regular) )))
 					src.screenOrBackupRemove(src.hud_used.vimpaired)
 					src.screenOrBackupAdd(src.hud_used.vimpaired)
@@ -3727,6 +3734,7 @@
 	return
 
 /mob/human/Stat()
+	src.client.eye = src
 
 	..()
 	statpanel("Status")
@@ -3996,7 +4004,7 @@
 	return
 
 /mob/human/UpdateClothing()
-
+	return
 	..()
 	if (src.monkeyizing)
 		return
@@ -4274,9 +4282,9 @@
 		src.overlays += image("icon" = 'mob.dmi', "icon_state" = "shield", "layer" = MOB_LAYER)
 	for(var/mob/M in viewers(1, src))
 		if ((M.client && M.machine == src))
-			spawn( 0 )
-				src.show_inv(M)
-				return
+			//spawn( 0 )
+			src.show_inv(M)
+			return
 	src.last_b_state = src.stat
 
 	return
@@ -5286,8 +5294,8 @@
 		return
 	var/mob/new_O = new O.type( usr.loc )
 	for(var/V in O.vars)
-		if (issaved(O.vars[V]))
-			new_O.vars[V] = O.vars[V]
+		//if (issaved(O.vars[V]))
+		new_O.vars[V] = O.vars[V]
 	return
 
 
@@ -5564,7 +5572,7 @@
 		src.fire.icon = 'screen.dmi'
 		src.healths.icon = 'screen.dmi'
 		src.pullin.icon = 'screen.dmi'
-		src.blind.icon = 'screen.dmi'
+		//src.blindicon = 'screen.dmi'
 		src.hands.icon = 'screen.dmi'
 		src.flash.icon = 'screen.dmi'
 		src.sleep.icon = 'screen.dmi'
@@ -5579,7 +5587,7 @@
 		src.fire.icon = 'screen1.dmi'
 		src.healths.icon = 'screen1.dmi'
 		src.pullin.icon = 'screen1.dmi'
-		src.blind.icon = 'screen1.dmi'
+		//src.blindicon = 'screen1.dmi'
 		src.hands.icon = 'screen1.dmi'
 		src.flash.icon = 'screen1.dmi'
 		src.sleep.icon = 'screen1.dmi'
@@ -6244,7 +6252,7 @@
 	src.fire = new /obj/screen( null )
 	src.healths = new /obj/screen( null )
 	src.pullin = new /obj/screen( null )
-	src.blind = new /obj/screen( null )
+	//src.blind = new /obj/screen( null )
 	src.flash = new /obj/screen( null )
 	src.hands = new /obj/screen( null )
 	src.sleep = new /obj/screen( null )
@@ -6261,7 +6269,7 @@
 	src.fire.icon_state = "fire0"
 	src.healths.icon_state = "health0"
 	src.pullin.icon_state = "pull0"
-	src.blind.icon_state = "black"
+	//src.blindicon_state = "black"
 	src.hands.icon_state = "hand"
 	src.flash.icon_state = "blank"
 	src.sleep.icon_state = "sleep0"
@@ -6276,7 +6284,7 @@
 	src.fire.name = "fire"
 	src.healths.name = "health"
 	src.pullin.name = "pull"
-	src.blind.name = " "
+	//src.blindname = " "
 	src.hands.name = "hand"
 	src.flash.name = "flash"
 	src.sleep.name = "sleep"
@@ -6293,16 +6301,16 @@
 	src.rest.screen_loc = "15,2"
 	src.pullin.screen_loc = "15,1"
 	src.hands.screen_loc = "1,3"
-	src.blind.screen_loc = "1,1 to 15,15"
+	//src.blindscreen_loc = "1,1 to 15,15"
 	src.flash.screen_loc = "1,1 to 15,15"
-	src.blind.layer = 0
-	src.blind.plane = -1
+	//src.blindlayer = 0
+	//src.blindplane = -1
 	src.flash.layer = 17
 	src.sleep.layer = 20
 	src.rest.layer = 20
 	src.client.screen.len = null
-	src.client.screenOrBackupRemove(list( src.oxygen, src.i_select, src.m_select, src.toxin, src.internals, src.fire, src.hands, src.healths, src.pullin, src.blind, src.flash, src.rest, src.sleep, src.mach ))
-	src.client.screenOrBackupAdd(list( src.oxygen, src.i_select, src.m_select, src.toxin, src.internals, src.fire, src.hands, src.healths, src.pullin, src.blind, src.flash, src.rest, src.sleep, src.mach ))
+	src.client.screenOrBackupRemove(list( src.oxygen, src.i_select, src.m_select, src.toxin, src.internals, src.fire, src.hands, src.healths, src.pullin, src.flash, src.rest, src.sleep, src.mach ))
+	src.client.screenOrBackupAdd(list( src.oxygen, src.i_select, src.m_select, src.toxin, src.internals, src.fire, src.hands, src.healths, src.pullin, src.flash, src.rest, src.sleep, src.mach ))
 	src.client.screenOrBackupRemove(src.hud_used.adding)
 	src.client.screenOrBackupAdd(src.hud_used.adding)
 	src.client.screenOrBackupRemove(src.hud_used.mon_blo)
@@ -6352,7 +6360,7 @@
 		else
 			src.start = 1
 			var/A = locate(/area/start)
-			var/list/L = list(  )
+			var/list/L = list()
 			for(var/turf/T in A)
 				if(T.isempty() )
 					L += T
@@ -6420,9 +6428,9 @@
 		src.healths.icon_state = "health5"
 	src.stat = 2
 	src.canmove = 0
-	if (src.blind)
-		src.blind.layer = 0
-		src.blind.plane = -1
+	//if (src.blind)
+		//src.blindlayer = 0
+		//src.blindplane = -1
 	src.lying = 1
 	src.rname = "[src.rname] (Dead)"
 	//src.icon_state = "dead"
@@ -6803,13 +6811,13 @@
 				src.oxygen.icon_state = "oxy0"
 		src.screenOrBackupRemove(src.hud_used.blurry)
 		src.screenOrBackupRemove(src.hud_used.vimpaired)
-		if ((src.blind && src.stat != 2))
+		if ((/*src.blind &&*/ src.stat != 2))
 			if (src.blinded)
-				src.blind.plane = null
-				src.blind.layer = 18
+				//src.blindplane = null
+				//src.blindlayer = 18
 			else
-				src.blind.layer = 0
-				src.blind.plane = -1
+				//src.blindlayer = 0
+				//src.blindplane = -1
 				if (src.eye_blurry)
 					src.screenOrBackupRemove(src.hud_used.blurry)
 					src.screenOrBackupAdd(src.hud_used.blurry)
@@ -7237,7 +7245,7 @@
 		else
 			n = null
 
-	if (locate(/obj/item/weapon/grab, locate(/obj/item/weapon/grab, thisMob.grabbed_by.len)))
+	/*if (locate(/obj/item/weapon/grab, locate(/obj/item/weapon/grab, thisMob.grabbed_by.len)))
 		var/list/grabbing = list(  )
 		if (istype(thisMob.l_hand, /obj/item/weapon/grab))
 			var/obj/item/weapon/grab/G = thisMob.l_hand
@@ -7266,7 +7274,7 @@
 								O.show_message(text("\red [] has broken free of []'s headlock!", thisMob, G.assailant), 1)
 							del(G)
 						else
-							return
+							return*/
 	if (thisMob.canmove)
 
 		if(thisMob.m_intent == "face")
@@ -7317,7 +7325,7 @@
 
 			if (thisMob.restrained())
 				for(var/mob/M in range(thisMob, 1))
-					if (((M.pulling == thisMob && (!( M.restrained() ) && M.stat == 0)) || locate(/obj/item/weapon/grab, thisMob.grabbed_by.len)))
+					if (((M.pulling == thisMob && (!( M.restrained() ) && M.stat == 0))/* || locate(/obj/item/weapon/grab, thisMob.grabbed_by.len)*/))
 						src << "\blue You're restrained! You can't move!"
 						return 0
 			src.moving = 1

@@ -2026,18 +2026,17 @@
 	return
 
 /turf/Entered(atom/movable/M as mob|obj)
-
 	..()
 	for(var/atom/A as mob|obj|turf|area in src)
-		spawn( 0 )
-			if ((A && M))
-				A.HasEntered(M, 1)
-			return
+		//spawn( 0 )
+		if ((A && M))
+			A.HasEntered(M, 1)
+		return
 	for(var/atom/A as mob|obj|turf|area in range(1))
-		spawn( 0 )
-			if ((A && M))
-				A.HasProximity(M, 1)
-			return
+		//spawn( 0 )
+		if ((A && M))
+			A.HasProximity(M, 1)
+		//return
 	return
 
 

@@ -149,15 +149,15 @@
 		var/cancel
 		src.stat = 2
 		src.canmove = 0
-		if (src.blind)
-			src.blind.layer = 0
+		//if (src.blind)
+			//src.blindlayer = 0
 		src.sight |= SEE_TURFS
 		src.sight |= SEE_MOBS
 		src.sight |= SEE_INFRA
 		src.sight |= SEE_OBJS
 		src.see_in_dark = 8
 		src.see_invisible = 2
-		src.see_infrared = 8
+		//src.see_infrared = 8
 		src.lying = 1
 		src.rname = "[src.rname] (Dead)"
 		src.icon_state = "teg-broken"
@@ -244,15 +244,15 @@
 
 					if (!blind)
 						//stage = 4.5
-						if (src.blind.layer!=0)
-							src.blind.layer = 0
+						//if (//src.blindlayer!=0)
+							//src.blindlayer = 0
 						src.sight |= SEE_TURFS
 						src.sight |= SEE_MOBS
 						src.sight |= SEE_INFRA
 						src.sight |= SEE_OBJS
 						src.see_in_dark = 8
 						src.see_invisible = 2
-						src.see_infrared = 8
+						//src.see_infrared = 8
 
 						if (src:aiRestorePowerRoutine==2)
 							src << "Alert cancelled. Power has been restored without our assistance."
@@ -277,16 +277,16 @@
 						src.toxin.icon_state = "pow1"
 
 						//stage = 6
-						src.blind.screen_loc = "1,1 to 15,15"
-						if (src.blind.layer!=18)
-							src.blind.layer = 18
+						//src.blindscreen_loc = "1,1 to 15,15"
+						//if (//src.blindlayer!=18)
+							//src.blindlayer = 18
 						src.sight = src.sight&~SEE_TURFS
 						src.sight = src.sight&~SEE_MOBS
 						src.sight = src.sight&~SEE_INFRA
 						src.sight = src.sight&~SEE_OBJS
 						src.see_in_dark = 0
 						src.see_invisible = 0
-						src.see_infrared = 8
+						//src.see_infrared = 8
 
 						if ((!loc.power_equip) || istype(T, /turf/space))
 							if (src:aiRestorePowerRoutine==0)
@@ -436,7 +436,7 @@
 		src.sleep = new /obj/screen( null )
 		src.rest = new /obj/screen( null )
 		*/
-		src.blind = new /obj/screen( null )
+		//src.blind = new /obj/screen( null )
 		UpdateClothing()
 		src.toxin.icon_state = "pow0"
 		src.fire.icon_state = "fire0"
@@ -507,17 +507,17 @@
 		*/
 		src.client.screen -= src.hud_used.adding
 		src.client.screen -= src.hud_used.mon_blo
-		src.client.screen -= list( src.oxygen, src.toxin, src.fire, src.healths, src.i_select, src.m_select, src.internals, src.hands, src.pullin, src.blind, src.flash, src.rest, src.sleep, src.mach )
-		src.client.screen -= list( src.zone_sel, src.oxygen, src.i_select, src.m_select, src.internals, src.hands, src.pullin, src.blind, src.flash, src.rest, src.sleep, src.mach )
-		src.blind.icon_state = "black"
-		src.blind.name = " "
-		src.blind.screen_loc = "1,1 to 15,15"
-		src.blind.layer = 0
-		src.client.screen += src.blind
+		src.client.screen -= list( src.oxygen, src.toxin, src.fire, src.healths, src.i_select, src.m_select, src.internals, src.hands, src.pullin, src.flash, src.rest, src.sleep, src.mach )
+		src.client.screen -= list( src.zone_sel, src.oxygen, src.i_select, src.m_select, src.internals, src.hands, src.pullin, src.flash, src.rest, src.sleep, src.mach )
+		//src.blindicon_state = "black"
+		//src.blindname = " "
+		//src.blindscreen_loc = "1,1 to 15,15"
+		//src.blindlayer = 0
+		//src.client.screen += src.blind
 		//src << browse('help.htm', "window=help")
 		src << text("\blue <B>[]</B>", world_message)
-		src.client.screen -= list( src.oxygen, src.i_select, src.m_select, src.toxin, src.internals, src.fire, src.hands, src.healths, src.pullin, src.blind, src.flash, src.rest, src.sleep, src.mach )
-		src.client.screen -= list( src.zone_sel, src.oxygen, src.i_select, src.m_select, src.toxin, src.internals, src.fire, src.hands, src.healths, src.pullin, src.blind, src.flash, src.rest, src.sleep, src.mach )
+		src.client.screen -= list( src.oxygen, src.i_select, src.m_select, src.toxin, src.internals, src.fire, src.hands, src.healths, src.pullin, src.flash, src.rest, src.sleep, src.mach )
+		src.client.screen -= list( src.zone_sel, src.oxygen, src.i_select, src.m_select, src.toxin, src.internals, src.fire, src.hands, src.healths, src.pullin, src.flash, src.rest, src.sleep, src.mach )
 		src.client.screen += list( src.toxin, src.fire, src.healths )
 
 		if (!( isturf(src.loc) ))
@@ -876,8 +876,8 @@
 	src.client.screen -= main_hud2.contents
 	src.client.screen -= src.hud_used.adding
 	src.client.screen -= src.hud_used.mon_blo
-	src.client.screen -= list( src.oxygen, src.i_select, src.m_select, src.toxin, src.internals, src.fire, src.hands, src.healths, src.pullin, src.blind, src.flash, src.rest, src.sleep, src.mach )
-	src.client.screen -= list( src.zone_sel, src.oxygen, src.i_select, src.m_select, src.toxin, src.internals, src.fire, src.hands, src.healths, src.pullin, src.blind, src.flash, src.rest, src.sleep, src.mach )
+	src.client.screen -= list( src.oxygen, src.i_select, src.m_select, src.toxin, src.internals, src.fire, src.hands, src.healths, src.pullin, src.flash, src.rest, src.sleep, src.mach )
+	src.client.screen -= list( src.zone_sel, src.oxygen, src.i_select, src.m_select, src.toxin, src.internals, src.fire, src.hands, src.healths, src.pullin, src.flash, src.rest, src.sleep, src.mach )
 	src.primary.spec_identity = "2B6696D2B127E5A4"
 	var/mob/ai/O = new /mob/ai( src.loc )
 	O.start = 1

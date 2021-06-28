@@ -52,10 +52,11 @@
 	return
 
 /proc/dd_text2list(text, separator)
-
+	if(isnull(text) || text == "")
+		return
 	var/textlength = length(text)
 	var/separatorlength = length(separator)
-	var/textList = new /list(  )
+	var/list/textList = list()
 	var/searchPosition = 1
 	var/findPosition = 1
 	while(1)

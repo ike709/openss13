@@ -35,7 +35,6 @@
 	icon_state = "generic"
 	gender = MALE
 	flags = 320.0	//64: fireable by mass driver, 256: fprint
-	var/mob/controlledBy = null
 	var/list/savedDroneIcons = null
 	var/obj/screen/screenIcons = null
 	var/obj/screen/gripperIcon
@@ -57,18 +56,15 @@
 	var/image/welderUnlit = null
 	var/image/welderLit = null
 	var/obj/item/weapon/wrench
-	var/obj/item/weapon/aiInterface
 	var/image/grippedItemImage = null
 	var/list/tools
-	
-	var/obj/item/weapon/selectedTool = null
 
 	New()
-		spawn(10)
+		/*spawn(10)
 			while (!config)
 				sleep(10)
 			if (!config.enable_drones)
-				del(src)
+				del(src)*/
 				
 		src.gripperIcon = new /obj/screen( null )
 		src.wirecuttersIcon = new /obj/screen( null )
@@ -180,7 +176,7 @@
 		if (counter>1)
 			name = name + " [num]"
 
-	proc/updateToolIcon(var/obj/item/weapon/W)
+	updateToolIcon(var/obj/item/weapon/W)
 		for (var/obj/screen/SI in src.screenIcons)
 			if (SI.screen_loc == W.screen_loc)
 				if (SI != src.dropButton && SI != src.selector)
@@ -207,7 +203,7 @@
 							spawn(0)
 								client.screen += W
 
-	proc/pressIfDroneButton(var/obj/screen/S)
+	pressIfDroneButton(var/obj/screen/S)
 		if (S.name=="drop")
 			if (src.l_hand!=null)
 				src.drop_item()
@@ -270,7 +266,7 @@
 
 
 
-	proc/selectTool(var/obj/item/weapon/W)
+	selectTool(var/obj/item/weapon/W)
 		if (W in src.tools)
 			src.selectedTool = W
 			if (W==src.grippers)

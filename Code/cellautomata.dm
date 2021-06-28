@@ -2265,7 +2265,8 @@
 	do
 		while(!(ticker))
 			for(var/mob/M in world)
-				spawn(0) M.UpdateClothing()
+				//spawn(0)
+				M.UpdateClothing()
 			sleep(10)
 
 		time = (++time % 10)
@@ -2277,7 +2278,8 @@
 					T.conduction()
 		sleep(3)
 		for(var/mob/M in world)
-			spawn(0) M.Life()
+			//spawn(0)
+			M.Life()
 		sleep(3)
 		for(var/obj/move/S in world)
 			S.process()

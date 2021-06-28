@@ -25,17 +25,18 @@ obj/machinery/light_switch
 
 	New()
 		..()
-		spawn(5) 							// wait for world to completely load
-			src.area = src.loc.loc			// by default, switch contains the area it is in
+							// wait for world to completely load
+		src.area = src.loc.loc			// by default, switch contains the area it is in
 
-			if(otherarea)					// setting this var to control a different area
-				src.area = locate(text2path("/area/[otherarea]"))
+		if(otherarea)					// setting this var to control a different area
+			src.area = locate(text2path("/area/[otherarea]"))
 
-			if(!name)
-				name = "light switch ([area.name])"
+		if(name == null && area)
+			name = "light switch ([area.name])"
 
-			src.on = src.area.lightswitch	// default on/off state is set by the area vars
-			updateicon()
+		/*if(src.area)
+			src.on = src.area.lightswitch*/	// default on/off state is set by the area vars
+		updateicon()
 
 
 	// Update the icon state to on, off, or unpowered

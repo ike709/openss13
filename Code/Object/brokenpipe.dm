@@ -63,8 +63,8 @@ obj/brokenpipe
 			src.invisibility = 101
 			is += "-f"
 
-		else
-			src.invisibility = null
+		/*else
+			src.invisibility = null*/
 
 		icon_state = is
 		return

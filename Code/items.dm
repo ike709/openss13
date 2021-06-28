@@ -724,7 +724,7 @@
 		user.dir = get_dir(user, target)
 		user.drop_item()
 		var/t = (isturf(target) ? target : target.loc)
-		walk_towards(src, t, 3)
+		//walk_towards(src, t, 3)
 		src.add_fingerprint(user)
 	return
 
@@ -1397,7 +1397,7 @@
 			..()
 			src.force = 10
 			for(var/mob/O in viewers(M, null))
-				O.show_message(text("\red <B>[] has been zapped with the taser gun by []!</B>", M, user), 1, "\red You have been zapped with the taser gun by []!", 2)
+				O.show_message(text("\red <B>[] has been zapped with the taser gun by []!</B>", M, user), 1, "\red You have been zapped with the taser gun by [user]!", 2)
 		else
 			..()
 	else
@@ -2581,10 +2581,10 @@
 			t = 1
 			while(t <= 14)
 				var/obj/effects/water/W = new /obj/effects/water( cur_loc )
-				if (rand(1, 3) != 1)
+				/*if (rand(1, 3) != 1)
 					walk_towards(W, pick(close), null)
 				else
-					walk_towards(W, pick(far), null)
+					walk_towards(W, pick(far), null)*/
 				sleep(1)
 				t++
 			src.waterleft--
@@ -2603,7 +2603,7 @@
 				t = 1
 				while(t <= 7)
 					var/obj/effects/water/W = new /obj/effects/water( cur_loc )
-					walk_towards(W, pick(possible), null)
+					//walk_towards(W, pick(possible), null)
 					sleep(1)
 					t++
 				src.waterleft -= 0.5
@@ -4483,23 +4483,24 @@
 	else
 		if (!( istype(I, /obj/item/weapon/implanter) ))
 			return
-	if (I:imp)
-		if ((src.imp || I:imp.implanted))
+	var/obj/item/weapon/implanter/P = I
+	if (P.imp)
+		if ((src.imp || P.imp.implanted))
 			return
-		I:imp.loc = src
-		src.imp = I:imp
-		I:imp = null
+		P.imp.loc = src
+		src.imp = P.imp
+		P.imp = null
 		src.update()
-		I:update()
+		P.update()
 	else
 		if (src.imp)
-			if (I:imp)
+			if (P.imp)
 				return
 			src.imp.loc = I
-			I:imp = src.imp
+			P.imp = src.imp
 			src.imp = null
 			update()
-			I:update()
+			P.update()
 	return
 
 /obj/item/weapon/implantcase/tracking/New()
@@ -5615,10 +5616,10 @@
 		return DblClick()
 
 /atom/DblClick()
-	if (world.time <= usr:lastDblClick+2)
+	if (world.time <= usr.lastDblClick+2)
 		return
 	else
-		usr:lastDblClick = world.time
+		usr.lastDblClick = world.time
 
 	..()
 	// I changed everything in this function from using usr to user before I found out that you can actually change the value of usr.
@@ -5637,18 +5638,19 @@
 					//user.client_mob() << "Debug message: user clicked their active tool."
 					spawn(0)
 						W.attack_self(user)
-						user:updateToolIcon(W)
+						user.updateToolIcon(W)
 					return
 				else
 					//user.client_mob() << "Debug message: user switched tools from [W] to [tool]"
-					user:selectTool(tool)
+					user.selectTool(tool)
 					return
 			else
 				//user.client_mob() << "Debug message: That's not one of our tools"
-				user:pressIfDroneButton(src)
+				user.pressIfDroneButton(src)
 		if (W == src)
 			//user.client_mob() << "Debug message: user clicked their active item."
-			spawn(0) W.attack_self(user)
+			spawn(0)
+				W.attack_self(user)
 			return
 
 	var/retval = src.canReach(user, W, 0)
@@ -5657,9 +5659,9 @@
 		return
 
 	if (istype(user, /mob/drone))
-		if (user:selectedTool == user:aiInterface)
-			if (istype(user:controlledBy, /mob/ai))
-				user = user:controlledBy
+		if (user.selectedTool == user.aiInterface)
+			if (istype(user.controlledBy, /mob/ai))
+				user = user.controlledBy
 				W = null
 
 	if (!(retval & CANREACH_USINGWEAPON))

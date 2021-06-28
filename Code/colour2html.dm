@@ -19,8 +19,8 @@
 
 /proc/LoadHTMLAssociations()
 
-	var/F = new /savefile( "s_html.sav" )
-	F["html_colours"] >> html_colours
+	//var/F = new /savefile( "s_html.sav" )
+	//F["html_colours"] >> html_colours
 	if (!( html_colours ))
 		html_colours = list(  )
 	if (!( html_colours.len ))
@@ -175,8 +175,8 @@
 
 /proc/SaveHTMLAssociations()
 
-	var/F = new /savefile( "s_html.sav" )
-	F["html_colours"] << html_colours
+	//var/F = new /savefile( "s_html.sav" )
+	//F["html_colours"] << html_colours
 	return
 
 /world/New()

@@ -753,7 +753,7 @@
 			T.updatelinks()
 
 /turf/proc/updatelinks()			// this does updating for a single cell
-
+	return
 	airN = null
 	airS = null
 	airE = null

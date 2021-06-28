@@ -30,14 +30,14 @@ obj/machinery/at_indicator
 		else if (SS13_airtunnel.operating == 2)
 			status = "e"
 		else
-			var/obj/move/airtunnel/connector/C = pick(SS13_airtunnel.connectors)
-			if (C.current == C)
-				status = 0
-			else
-				if (!( C.current.next ))
+			if(length(SS13_airtunnel.connectors))
+				var/obj/move/airtunnel/connector/C = pick(SS13_airtunnel.connectors)
+				if (C && C.current == C)
+					status = 0
+				if (C && !( C.current.next ))
 					status = 2
-				else
-					status = 1
+			else
+				status = 1
 		src.icon_state = text("reader[][]", (SS13_airtunnel.siphon_status == 2 ? "1" : "0"), status)
 		return
 

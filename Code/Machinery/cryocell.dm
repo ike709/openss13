@@ -327,7 +327,7 @@ obj/machinery/cryo_cell
 				//leak_to_turf()
 				if(vnode)
 					//vnode:leak_to_turf()
-					var/obj/machinery/freezer/target = vnode:vnode2
+					/*var/obj/machinery/freezer/target = vnode:vnode2
 					if (target)
 						//target.leak_to_turf()
 						var/sendplasma = src.gas.plasma + vnode:gas:plasma + vnode:vnode2:gas:plasma
@@ -349,7 +349,7 @@ obj/machinery/cryo_cell
 									src.vnode:gas.oxygen = 0
 									src.vnode:ngas.oxygen = 0
 									src.vnode:vnode2:gas.oxygen = 0
-									src.vnode:vnode2:ngas.oxygen = 0
+									src.vnode:vnode2:ngas.oxygen = 0*/
 
 					//we ignore co2, sl_gas, and n2
 				else

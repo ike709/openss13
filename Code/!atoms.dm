@@ -283,8 +283,10 @@
 	var/stat = 0.0
 	var/next_move = null
 	var/prev_move = null
+	var/mob/controlledBy = null
 	var/monkeyizing = null
 	var/other = 0.0
+	var/obj/item/weapon/aiInterface
 	var/hand = null
 	var/eye_blind = null
 	var/eye_blurry = null
@@ -335,7 +337,7 @@
 	var/obj/item/weapon/storage/s_active = null
 	var/obj/item/weapon/clothing/mask/wear_mask = null
 	var/obj/screen/flash = null
-	var/obj/screen/blind = null
+	//var/obj/screen/blind = null
 	var/obj/screen/hands = null
 	var/obj/screen/mach = null
 	var/obj/screen/sleep = null
@@ -353,6 +355,7 @@
 	var/start = null
 	var/disable_one_click = 0
 	var/favorite_hud = 0
+	var/obj/item/weapon/selectedTool = null
 	var/currentDrone = null
 	var/droneTransitioning = 0
 	var/cameraFollow = null
@@ -363,6 +366,15 @@
 	var/list/requests = list(  )
 
 	var/list/mapobjs = list()
+
+/mob/proc/updateToolIcon()
+	return
+
+/mob/proc/selectTool()
+	return
+
+/mob/proc/pressIfDroneButton()
+	return
 
 /mob/ghost
 	name = "ghost"

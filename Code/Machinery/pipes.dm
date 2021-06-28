@@ -204,10 +204,10 @@ obj/machinery/pipes
 
 		if ((src.level == 1 && isturf(src.loc) && T.intact))
 			src.invisibility = 101
-			is += "-f"
+			is = "[is]-f"
 
-		else
-			src.invisibility = null
+		/*else
+			src.invisibility = null*/
 
 		src.icon_state = is
 

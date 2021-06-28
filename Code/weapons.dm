@@ -1458,8 +1458,8 @@
 	..()
 	if ((A && A.density && !( istype(A, /obj/beam) )))
 		for(var/obj/beam/i_beam/I in src)
-			spawn( 0 )
-				if (I)
-					I.hit()
-				return
+			//spawn( 0 )
+			if (I)
+				I.hit()
+			//return
 	return
